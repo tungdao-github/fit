@@ -21,42 +21,28 @@ const CATEGORIES = [
 
 const NewsCategories: React.FC = () => {
   return (
-    <aside
-      className="bg-white"
-      style={{
-        width: "350px",
-        maxWidth: "100%",
-        boxShadow: "0 2px 10px rgba(0,0,0,0.07)",
-        padding: "24px 24px 8px",
-      }}
-    >
+    <aside className="bg-white w-full rounded-xl shadow-[0_2px_12px_rgba(0,0,0,0.06)] p-6">
       <div className="flex items-center gap-3 mb-5">
-        <span className="flex flex-col gap-1 shrink-0">
-          <span className="block w-6 h-[1.9px] bg-[#b71c4c]" />
-          <span className="block w-3.5 h-[1px] ml-2.5 bg-[#b71c4c]" />
-        </span>
-        <h3 className="m-0 text-[#1a1a2e] text-base font-bold tracking-[0.02em] uppercase">
-          Tin tức
+        <div className="w-1 h-6 bg-[#b71c4c] rounded-full" />
+        <h3 className="m-0 text-[#1a1a2e] text-base font-bold tracking-wide">
+          Danh mục tin tức
         </h3>
       </div>
 
-      <ul className="list-none p-0 m-0">
-        {CATEGORIES.map((category, index) => (
-          <li
-            key={category.id}
-            className={index < CATEGORIES.length - 1 ? "border-b border-[#f0f0f0]" : ""}
-          >
+      <ul className="list-none p-0 m-0 space-y-1">
+        {CATEGORIES.map((category) => (
+          <li key={category.id}>
             <Link
               href={category.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="group flex items-center gap-3 py-[13px] text-sm no-underline transition-all duration-200 text-[#555] hover:text-[#b71c4c] hover:pl-[10px]"
+              className="group flex items-center gap-3 py-3 px-3 text-sm no-underline transition-all duration-200 text-gray-600 hover:text-[#b71c4c] hover:bg-[#b71c4c]/5 rounded-lg"
             >
               <FiStar
-                size={13}
-                className="shrink-0 text-[#ccc] transition-colors duration-200 group-hover:text-[#b71c4c]"
+                size={14}
+                className="shrink-0 text-gray-300 transition-colors duration-200 group-hover:text-[#b71c4c]"
               />
-              <span className="leading-6">{category.label}</span>
+              <span className="leading-relaxed">{category.label}</span>
             </Link>
           </li>
         ))}

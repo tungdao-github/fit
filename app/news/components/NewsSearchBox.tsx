@@ -45,7 +45,13 @@ const NewsSearchBox: React.FC = () => {
   };
 
   return (
-    <div className="news-search-box bg-white mx-auto lg:mx-0 w-full max-w-[350px] h-[107px] flex items-center px-5 shadow-[0_2px_10px_rgba(0,0,0,0.07)] transition-shadow duration-300 hover:shadow-[0_6px_20px_rgba(0,0,0,0.11)]">
+    <div className="news-search-box bg-white mx-auto lg:mx-0 w-full rounded-xl p-6 shadow-[0_2px_12px_rgba(0,0,0,0.06)] transition-shadow duration-300 hover:shadow-[0_4px_20px_rgba(0,0,0,0.1)]">
+      <div className="flex items-center gap-3 mb-4">
+        <div className="w-1 h-6 bg-[#b71c4c] rounded-full" />
+        <h3 className="m-0 text-[#1a1a2e] text-base font-bold tracking-wide">
+          Tìm kiếm
+        </h3>
+      </div>
       <ConfigProvider theme={antdTheme}>
         <Input.Search
           placeholder="Tìm kiếm bài viết..."

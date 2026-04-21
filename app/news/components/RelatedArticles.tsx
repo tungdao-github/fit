@@ -33,39 +33,36 @@ const RelatedArticles: React.FC<Props> = async ({ currentSlug }) => {
   return (
     <div className="space-y-4">
       {relatedArticles.map((article: NewsItem) => (
-        <div
+        <Link
           key={article.id}
-          className="flex items-start gap-4 p-4 rounded-lg shadow bg-white transition-transform duration-300 hover:scale-[1.02]"
+          href={`/news/${article.url}`}
+          className="group flex items-start gap-4 p-3 rounded-lg bg-[#f8f9fa] hover:bg-[#b71c4c]/5 transition-all duration-300"
         >
-          <div className="relative w-24 h-24 shrink-0 overflow-hidden rounded-md">
-            <div className="relative w-24 h-24">
-              <img
-                src={safeImg(article.thumbnail)}
-                alt={article.title}
-                className="absolute inset-0 w-full h-full object-cover"
-              />
-            </div>
+          <div className="relative w-20 h-20 shrink-0 overflow-hidden rounded-lg">
+            <img
+              src={safeImg(article.thumbnail)}
+              alt={article.title}
+              className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+            />
           </div>
 
           <div className="flex-1 min-w-0">
-            <Link href={`/news/${article.url}`}>
-              <h3 className="text-base font-bold line-clamp-2 hover:text-red-700">
-                {article.title}
-              </h3>
-            </Link>
+            <h3 className="text-sm font-semibold text-[#1a1a2e] line-clamp-2 group-hover:text-[#b71c4c] transition-colors duration-200 leading-snug">
+              {article.title}
+            </h3>
 
-            <div className="flex justify-between items-center mt-4 text-sm text-gray-500">
-              <span className="flex gap-1 items-center">
-                <BiCalendar />
+            <div className="flex items-center gap-3 mt-2 text-xs text-gray-400">
+              <span className="flex items-center gap-1">
+                <BiCalendar className="text-[#b71c4c]" size={12} />
                 {dayjs(article.createdDate).format("DD/MM/YYYY")}
               </span>
-              <span className="flex gap-1 items-center">
-                {article.view}
-                <BsEye />
+              <span className="flex items-center gap-1">
+                <BsEye className="text-[#b71c4c]" size={12} />
+                {article.view.toLocaleString("vi-VN")}
               </span>
             </div>
           </div>
-        </div>
+        </Link>
       ))}
     </div>
   );

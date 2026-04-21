@@ -59,60 +59,70 @@ const Page = async ({ params }: Props) => {
           ]}
           title={article.title}
         />
-        <main className="container mx-auto px-4 pt-24 md:pt-28 lg:pt-32 pb-8 md:pb-10">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6 lg:gap-8">
-            <div className="md:col-span-2 lg:col-span-8 min-w-0">
-              <div className="mb-4">
-                <div className="text-red-700 font-bold text-xs uppercase">
-                  Tin tức
+        <main className="bg-[#f8f9fa] min-h-screen">
+          <div className="container mx-auto px-4 py-10 md:py-12">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+              {/* Main Content */}
+              <article className="lg:col-span-8">
+                <div className="bg-white rounded-xl shadow-[0_2px_12px_rgba(0,0,0,0.06)] overflow-hidden">
+                  {/* Featured Image */}
+                  <div className="relative w-full h-[240px] sm:h-[320px] md:h-[380px] lg:h-[420px] overflow-hidden">
+                    <img
+                      src={safeImg(article.thumbnail)}
+                      alt={article.title}
+                      loading="lazy"
+                      className="absolute inset-0 w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+                  </div>
+                  
+                  {/* Article Content */}
+                  <div className="p-6 md:p-8 lg:p-10">
+                    <div className="mb-6">
+                      <span className="inline-block bg-[#b71c4c] text-white text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wide mb-4">
+                        Tin tức
+                      </span>
+                      <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#1a1a2e] leading-tight">
+                        {article.title}
+                      </h1>
+                    </div>
+                    
+                    <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500 mb-8 pb-6 border-b border-gray-100">
+                      <span className="flex items-center gap-2">
+                        <BiCalendar className="text-[#b71c4c]" />
+                        {dayjs(article.modifiedDate).format("DD/MM/YYYY HH:mm")}
+                      </span>
+                      <span className="flex items-center gap-2">
+                        <BsEye className="text-[#b71c4c]" />
+                        {article.view.toLocaleString("vi-VN")} lượt xem
+                      </span>
+                    </div>
+                    
+                    <div
+                      dangerouslySetInnerHTML={{ __html: article.content }}
+                      className="prose prose-lg max-w-none prose-headings:text-[#1a1a2e] prose-p:text-gray-600 prose-p:leading-relaxed prose-a:text-[#b71c4c] prose-a:no-underline hover:prose-a:underline prose-img:rounded-lg"
+                    />
+                  </div>
                 </div>
-                <h1 className="text-xl md:text-2xl lg:text-3xl font-bold mb-2">
-                  {article.title}
-                </h1>
-              </div>
-              <div className="relative w-full h-[220px] sm:h-[280px] md:h-[320px] lg:h-[400px] mb-6 rounded-lg overflow-hidden">
-                <img
-                  src={safeImg(article.thumbnail)}
-                  alt={article.title}
-                  loading="lazy"
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
-              </div>
-              <div
-                dangerouslySetInnerHTML={{ __html: article.content }}
-                className="prose prose-sm md:prose-base lg:prose-lg max-w-none mb-6"
-              />
-              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 text-gray-500 border-t border-dashed border-gray-300 pt-3 text-sm">
+              </article>
 
-                <span className="flex gap-1 items-center">
-                  <BiCalendar />
-                  {dayjs(article.modifiedDate).format("DD/MM/YYYY HH:mm")}
-                </span>
-
-                <span className="flex gap-1 items-center">
-                  <BsEye />
-                  {article.view} lượt xem
-                </span>
-              </div>
+              {/* Sidebar */}
+              <aside className="lg:col-span-4">
+                <div className="lg:sticky lg:top-28 space-y-6">
+                  <div className="bg-white rounded-xl shadow-[0_2px_12px_rgba(0,0,0,0.06)] p-6">
+                    <div className="flex items-center gap-3 mb-6">
+                      <div className="w-1 h-8 bg-[#b71c4c] rounded-full" />
+                      <h2 className="text-xl font-bold text-[#1a1a2e]">
+                        Bài viết liên quan
+                      </h2>
+                    </div>
+                    <Suspense fallback={<RelatedArticlesSkeleton />}>
+                      <RelatedArticles currentSlug={slug} />
+                    </Suspense>
+                  </div>
+                </div>
+              </aside>
             </div>
-
-            {/* SIDEBAR */}
-            <aside className="md:col-span-2 lg:col-span-4 w-full lg:sticky lg:top-32 space-y-6">
-
-              <div>
-                <div className="text-red-700 font-bold text-xs uppercase">
-                  Tin tức
-                </div>
-                <h2 className="text-lg md:text-xl font-bold mb-3">
-                  Bài viết mới
-                </h2>
-              </div>
-
-              <Suspense fallback={<RelatedArticlesSkeleton />}>
-                <RelatedArticles currentSlug={slug} />
-              </Suspense>
-            </aside>
-
           </div>
         </main>
       </>

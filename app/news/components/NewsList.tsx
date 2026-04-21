@@ -56,7 +56,7 @@ const NewsList: React.FC<Props> = async ({ currentPage, query }) => {
       {!errorMessage && total === 0 && <NewsEmptyState />}
 
       {!errorMessage && (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {items.map((item) => (
             <NewsCard key={item.id} item={item} />
           ))}

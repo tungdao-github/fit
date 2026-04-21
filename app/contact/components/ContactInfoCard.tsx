@@ -26,11 +26,8 @@ export default function ContactInfoCard({
 }: ContactInfoCardProps) {
   const bgColor =
     variant === "red"
-      ? "bg-gradient-to-br from-[#c22542] to-[#031428]"
-      : "bg-[#1c2e46]";
-
-  const overlayOpacity =
-    variant === "red" ? "bg-black/10" : "bg-black/40";
+      ? "bg-gradient-to-br from-[#b71c4c] to-[#1c2e46]"
+      : "bg-gradient-to-br from-[#1c2e46] to-[#0f1a2e]";
 
   const Icon =
     icon === "location"
@@ -40,61 +37,39 @@ export default function ContactInfoCard({
         : HiOutlineMail;
 
   return (
-    <div
-      className="
-        group relative rounded-2xl p-10 text-center text-white overflow-hidden
-        shadow-[0_10px_40px_rgba(0,0,0,0.12)] transition-all duration-300 ease-in-out
-        hover:shadow-[0_15px_50px_rgba(0,0,0,0.18)] hover:scale-[1.02] cursor-default
-        bg-white
-      "
-    >
+    <div className="group relative rounded-2xl p-8 md:p-10 text-center text-white overflow-hidden shadow-[0_4px_20px_rgba(0,0,0,0.1)] transition-all duration-300 ease-out hover:shadow-[0_8px_30px_rgba(0,0,0,0.15)] hover:-translate-y-1 cursor-default min-h-[220px] flex flex-col justify-center">
+      {/* Background Image */}
       {backgroundImage && (
-        <>
-          <img
-            src={backgroundImage}
-            alt=""
-            aria-hidden="true"
-            className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:scale-110"
-          />
-          <div
-            className={`absolute inset-0 ${overlayOpacity}`}
-          />
-        </>
+        <img
+          src={backgroundImage}
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-110"
+        />
       )}
 
-      <div
-        className={`absolute inset-0 ${bgColor} ${
-          backgroundImage ? "opacity-70" : "opacity-100"
-        }`}
-      />
+      {/* Gradient Overlay */}
+      <div className={`absolute inset-0 ${bgColor} ${backgroundImage ? "opacity-85" : "opacity-100"}`} />
 
+      {/* Content */}
       <div className="relative z-10">
         <div className="flex justify-center mb-5">
-          <div
-            className="
-              bg-white/20 backdrop-blur-sm rounded-full p-3.5 border border-white/30
-              transition-all duration-300 ease-in-out
-              group-hover:scale-110 group-hover:rotate-6
-            "
-          >
-            <Icon className="w-8 h-8" />
+          <div className="bg-white/15 backdrop-blur-sm rounded-full p-4 border border-white/20 transition-all duration-300 ease-out group-hover:scale-110 group-hover:bg-white/25">
+            <Icon className="w-7 h-7" />
           </div>
         </div>
 
-        <h3 className="text-lg font-semibold mb-4 tracking-wide">
+        <h3 className="text-lg font-bold mb-4 tracking-wide">
           {title}
         </h3>
 
-        <div className="space-y-1">
+        <div className="space-y-1.5">
           {content.map((line, index) => (
-            <p
-              key={index}
-              className="text-sm leading-relaxed opacity-95"
-            >
+            <p key={index} className="text-sm leading-relaxed text-white/90">
               {line.href ? (
                 <a
                   href={line.href}
-                  className="hover:underline hover:text-white"
+                  className="hover:text-white hover:underline transition-colors duration-200"
                 >
                   {line.label}
                 </a>
@@ -106,7 +81,8 @@ export default function ContactInfoCard({
         </div>
       </div>
 
-      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out pointer-events-none" />
+      {/* Shine Effect */}
+      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700 ease-out pointer-events-none" />
     </div>
   );
 }
